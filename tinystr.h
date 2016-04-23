@@ -11,10 +11,14 @@ typedef union TinyStr {
   char array[8];
 } TinyStr;
 
+bool tinyStrEqual(TinyStr str1, TinyStr str2);
+
 bool tinyStrIsValid(TinyStr str);
 
 TinyStr tinyStrFromC(const char *cstr);
 
 TinyStr tinyStrNew(void); // Empty string.
+
+uint64_t tinyStrMinPerfectHash(TinyStr str);
 
 #endif

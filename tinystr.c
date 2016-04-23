@@ -3,6 +3,14 @@
 
 #include "tinystr.h"
 
+bool tinyStrEqual(TinyStr str1, TinyStr str2) {
+	assert(tinyStrIsValid(str1));
+	assert(tinyStrIsValid(str2));
+
+	// Simply compare perfect hashes.
+	return tinyStrMinPerfectHash(str1)==tinyStrMinPerfectHash(str2);
+}
+
 bool tinyStrIsValid(TinyStr str) {
 	bool nullFound=false;
 	unsigned i;
@@ -33,3 +41,9 @@ TinyStr tinyStrNew(void) {
 	assert(tinyStrIsValid(str));
 	return str;
 }
+
+uint64_t tinyStrMinPerfectHash(TinyStr str) {
+	assert(tinyStrIsValid(str));
+	return str.integer;
+}
+
