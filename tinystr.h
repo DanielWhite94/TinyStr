@@ -21,6 +21,8 @@ TinyStr tinyStrNew(void); // Empty string.
 
 uint64_t tinyStrMinPerfectHash(TinyStr str);
 
+TinyStr tinyStrSub(TinyStr str, unsigned offset, unsigned length);
+
 TinyStr tinyStrTruncate(TinyStr str, unsigned length);
 
 #endif

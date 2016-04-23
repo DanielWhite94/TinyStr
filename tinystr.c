@@ -47,6 +47,18 @@ uint64_t tinyStrMinPerfectHash(TinyStr str) {
 	return str.integer;
 }
 
+TinyStr tinyStrSub(TinyStr str, unsigned offset, unsigned length) {
+	assert(tinyStrIsValid(str));
+
+	// Trim first offset number of chars.
+	str.integer>>=offset*8;
+	assert(tinyStrIsValid(str));
+
+	// Truncate to length.
+	str=tinyStrTruncate(str, length);
+
+	return str;
+}
 
 TinyStr tinyStrTruncate(TinyStr str, unsigned length) {
 	assert(tinyStrIsValid(str));
