@@ -47,3 +47,19 @@ uint64_t tinyStrMinPerfectHash(TinyStr str) {
 	return str.integer;
 }
 
+
+TinyStr tinyStrTruncate(TinyStr str, unsigned length) {
+	assert(tinyStrIsValid(str));
+
+	// Restrict length to maximum of 7.
+	if (length>7)
+		length=7;
+
+	// Mask out last length positions with 0 bits.
+	static const uint64_t allOnes=~((uint64_t)0);
+	const uint64_t mask=(allOnes >> ((8-length)*8));
+	str.integer&=mask;
+
+	assert(tinyStrIsValid(str));
+	return str;
+}
