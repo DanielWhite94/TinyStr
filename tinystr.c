@@ -46,7 +46,7 @@ TinyStr tinyStrFromC(const char *cstr) {
 	TinyStr tinyStr=tinyStrNew();
 
 	// Copy string.
-	strncpy((char *)tinyStr.array, cstr, 7);
+	strncpy(tinyStrToCNoConst(tinyStr), cstr, 7);
 
 	assert(tinyStrIsValid(tinyStr));
 	return tinyStr;
