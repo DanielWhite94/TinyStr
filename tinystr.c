@@ -8,7 +8,7 @@ bool tinyStrEqual(TinyStr str1, TinyStr str2) {
 	assert(tinyStrIsValid(str2));
 
 	// Simply compare perfect hashes.
-	return tinyStrMinPerfectHash(str1)==tinyStrMinPerfectHash(str2);
+	return tinyStrPerfectHash(str1)==tinyStrPerfectHash(str2);
 }
 
 bool tinyStrIsValid(TinyStr str) {
@@ -42,7 +42,7 @@ TinyStr tinyStrNew(void) {
 	return str;
 }
 
-uint64_t tinyStrMinPerfectHash(TinyStr str) {
+uint64_t tinyStrPerfectHash(TinyStr str) {
 	assert(tinyStrIsValid(str));
 	return str.integer;
 }

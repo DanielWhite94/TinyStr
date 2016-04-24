@@ -19,7 +19,7 @@ TinyStr tinyStrFromC(const char *cstr);
 
 TinyStr tinyStrNew(void); // Empty string.
 
-uint64_t tinyStrMinPerfectHash(TinyStr str);
+uint64_t tinyStrPerfectHash(TinyStr str);
 
 TinyStr tinyStrSub(TinyStr str, unsigned offset, unsigned length);
 
