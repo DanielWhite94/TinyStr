@@ -3,6 +3,8 @@
 
 #include "tinystr.h"
 
+#define tinyStrToCNoConst(tinyStr) ((char *)(tinyStr).array)
+
 int tinyStrCmp(TinyStr str1, TinyStr str2) {
 	assert(tinyStrIsValid(str1));
 	assert(tinyStrIsValid(str2));
