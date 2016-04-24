@@ -85,6 +85,7 @@ TinyStr tinyStrSub(TinyStr str, unsigned offset, unsigned length) {
 	assert(tinyStrIsValid(str));
 
 	// Trim first offset number of chars.
+	// FIXME: Assumes little-endian.
 	str.integer>>=offset*8;
 	assert(tinyStrIsValid(str));
 
@@ -102,6 +103,7 @@ TinyStr tinyStrTruncate(TinyStr str, unsigned length) {
 		length=7;
 
 	// Mask out last length positions with 0 bits.
+	// FIXME: Assumes little-endian.
 	static const uint64_t allOnes=~((uint64_t)0);
 	const uint64_t mask=(allOnes >> ((8-length)*8));
 	str.integer&=mask;
