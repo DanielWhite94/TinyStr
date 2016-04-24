@@ -3,6 +3,20 @@
 
 #include "tinystr.h"
 
+int tinyStrCmp(TinyStr str1, TinyStr str2) {
+	assert(tinyStrIsValid(str1));
+	assert(tinyStrIsValid(str2));
+
+	uint64_t hash1=tinyStrPerfectHashOrderPreserving(str1);
+	uint64_t hash2=tinyStrPerfectHashOrderPreserving(str2);
+
+	int64_t diff=hash1-hash2;
+	int result=(diff==0 ? 0 : (diff<0 ? -1 : 1));
+
+	assert(result==strcmp(tinyStrToC(str1), tinyStrToC(str2)));
+	return result;
+}
+
 bool tinyStrEqual(TinyStr str1, TinyStr str2) {
 	assert(tinyStrIsValid(str1));
 	assert(tinyStrIsValid(str2));

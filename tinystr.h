@@ -11,6 +11,8 @@ typedef union TinyStr {
   char array[8];
 } TinyStr;
 
+int tinyStrCmp(TinyStr str1, TinyStr str2);
+
 bool tinyStrEqual(TinyStr str1, TinyStr str2);
 
 bool tinyStrIsValid(TinyStr str);
