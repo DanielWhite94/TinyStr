@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "tinystr.h"
@@ -69,6 +70,17 @@ uint64_t tinyStrPerfectHashOrderPreserving(TinyStr str) {
 	return __bswap_64(str.integer);
 }
 
+TinyStr tinyStrPrintf(const char *format, ...) {
+	assert(format!=NULL);
+
+	va_list ap;
+	va_start(ap, format);
+	TinyStr str=tinyStrVPrintf(format, ap);
+	va_end(ap);
+
+	return str;
+}
+
 TinyStr tinyStrSub(TinyStr str, unsigned offset, unsigned length) {
 	assert(tinyStrIsValid(str));
 
@@ -95,5 +107,13 @@ TinyStr tinyStrTruncate(TinyStr str, unsigned length) {
 	str.integer&=mask;
 
 	assert(tinyStrIsValid(str));
+	return str;
+}
+
+TinyStr tinyStrVPrintf(const char *format, va_list ap) {
+	assert(format!=NULL);
+
+	TinyStr str=tinyStrNew();
+	vsnprintf(tinyStrToCNoConst(str), 8, format, ap);
 	return str;
 }
