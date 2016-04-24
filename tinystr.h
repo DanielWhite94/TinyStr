@@ -20,6 +20,7 @@ TinyStr tinyStrFromC(const char *cstr);
 TinyStr tinyStrNew(void); // Empty string.
 
 uint64_t tinyStrPerfectHash(TinyStr str); // Returns a unique 64 bit integer for each valid string.
+uint64_t tinyStrPerfectHashOrderPreserving(TinyStr str); // Same as the above but if a<b (asciibetically) then f(a)<f(b), for all valid strings a and b.
 
 TinyStr tinyStrSub(TinyStr str, unsigned offset, unsigned length);
 

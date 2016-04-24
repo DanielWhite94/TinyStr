@@ -47,6 +47,12 @@ uint64_t tinyStrPerfectHash(TinyStr str) {
 	return str.integer;
 }
 
+uint64_t tinyStrPerfectHashOrderPreserving(TinyStr str) {
+	assert(tinyStrIsValid(str));
+	// FIXME: Assumes little-endian.
+	return __bswap_64(str.integer);
+}
+
 TinyStr tinyStrSub(TinyStr str, unsigned offset, unsigned length) {
 	assert(tinyStrIsValid(str));
 
