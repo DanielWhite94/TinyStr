@@ -24,10 +24,7 @@ int tinyStrCmp(TinyStr str1, TinyStr str2) {
 	uint64_t hash2=tinyStrPerfectHashOrderPreserving(str2);
 
 	int64_t diff=hash1-hash2;
-	int result=(diff==0 ? 0 : (diff<0 ? -1 : 1));
-
-	assert(result==strcmp(tinyStrToC(str1), tinyStrToC(str2)));
-	return result;
+	return (diff==0 ? 0 : (diff<0 ? -1 : 1));
 }
 
 bool tinyStrEqual(TinyStr str1, TinyStr str2) {
