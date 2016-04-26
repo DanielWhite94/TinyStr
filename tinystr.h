@@ -20,6 +20,8 @@ bool tinyStrIsValid(TinyStr str);
 
 TinyStr tinyStrFromC(const char *cstr);
 
+unsigned tinyStrLen(TinyStr str);
+
 TinyStr tinyStrNew(void); // Empty string.
 
 uint64_t tinyStrPerfectHash(TinyStr str); // Returns a unique 64 bit integer for each valid string.

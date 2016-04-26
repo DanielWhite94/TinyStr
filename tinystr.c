@@ -6,6 +6,16 @@
 
 #define tinyStrToCNoConst(tinyStr) ((char *)(tinyStr).array)
 
+////////////////////////////////////////////////////////////////////////////////
+// Private prototypes.
+////////////////////////////////////////////////////////////////////////////////
+
+unsigned tinyStrBitScanReverse(uint64_t x);
+
+////////////////////////////////////////////////////////////////////////////////
+// Public functions.
+////////////////////////////////////////////////////////////////////////////////
+
 int tinyStrCmp(TinyStr str1, TinyStr str2) {
 	assert(tinyStrIsValid(str1));
 	assert(tinyStrIsValid(str2));
@@ -50,6 +60,19 @@ TinyStr tinyStrFromC(const char *cstr) {
 
 	assert(tinyStrIsValid(tinyStr));
 	return tinyStr;
+}
+
+unsigned tinyStrLen(TinyStr str) {
+	assert(tinyStrIsValid(str));
+
+	// Special case for empty string.
+	if (str.integer==0)
+		return 0;
+
+	// Otherwise find first non-zero bit (which will be in the first non-zero byte), and find which byte it is in.
+	// FIXME: Assumes little-endian.
+	unsigned msb=tinyStrBitScanReverse(str.integer);
+	return msb/8+1;
 }
 
 TinyStr tinyStrNew(void) {
@@ -119,3 +142,34 @@ TinyStr tinyStrVPrintf(const char *format, va_list ap) {
 	vsnprintf(tinyStrToCNoConst(str), 8, format, ap);
 	return str;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// Private functions.
+////////////////////////////////////////////////////////////////////////////////
+
+static const unsigned tinyStrBitScanReverseIndex64[64]={
+    0, 47,  1, 56, 48, 27,  2, 60,
+   57, 49, 41, 37, 28, 16,  3, 61,
+   54, 58, 35, 52, 50, 42, 21, 44,
+   38, 32, 29, 23, 17, 11,  4, 62,
+   46, 55, 26, 59, 40, 36, 15, 53,
+   34, 51, 20, 43, 31, 22, 10, 45,
+   25, 39, 14, 33, 19, 30,  9, 24,
+   13, 18,  8, 12,  7,  6,  5, 63
+};
+
+unsigned tinyStrBitScanReverse(uint64_t x) {
+	assert(x!=0);
+
+	const uint64_t debruijn64=0x03f79d71b4cb0a89;
+
+	x|=x>>1;
+	x|=x>>2;
+	x|=x>>4;
+	x|=x>>8;
+	x|=x>>16;
+	x|=x>>32;
+
+	return tinyStrBitScanReverseIndex64[(x*debruijn64)>>58];
+}
+
