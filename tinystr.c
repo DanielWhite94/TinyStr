@@ -16,6 +16,24 @@ unsigned tinyStrBitScanReverse(uint64_t x);
 // Public functions.
 ////////////////////////////////////////////////////////////////////////////////
 
+TinyStr tinyStrCat(TinyStr str1, TinyStr str2) {
+	assert(tinyStrIsValid(str1));
+	assert(tinyStrIsValid(str2));
+
+	// Shift str2 along by str1Len characters to move it into position.
+	unsigned str1Len=tinyStrLen(str1);
+	str2.integer<<=str1Len*8; // FIXME: Assumes little-endian.
+
+	// OR str2 into str1.
+	str1.integer|=str2.integer;
+
+	// Add a terminating null-byte in case we lost it in the above OR operation.
+	str1.array[7]='\0';
+
+	assert(tinyStrIsValid(str1));
+	return str1;
+}
+
 int tinyStrCmp(TinyStr str1, TinyStr str2) {
 	assert(tinyStrIsValid(str1));
 	assert(tinyStrIsValid(str2));
