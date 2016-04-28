@@ -118,9 +118,9 @@ TinyStr tinyStrSub(TinyStr str, unsigned offset, unsigned length) {
 TinyStr tinyStrTruncate(TinyStr str, unsigned length) {
 	assert(tinyStrIsValid(str));
 
-	// Restrict length to maximum of 7.
-	if (length>7)
-		length=7;
+	// If given length is 7 or greater, str will be unchanged.
+	if (length>=7)
+		return str;
 
 	// Mask out last length positions with 0 bits.
 	// FIXME: Assumes little-endian.
