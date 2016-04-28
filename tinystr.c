@@ -138,7 +138,7 @@ TinyStr tinyStrVPrintf(const char *format, va_list ap) {
 	TinyStr str=tinyStrNew();
 	vsnprintf(tinyStrToCNoConst(str), 8, format, ap);
 
-	assert(tinyStrIsValid(tinyStr));
+	assert(tinyStrIsValid(str));
 	return str;
 }
 
