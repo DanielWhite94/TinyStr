@@ -7,7 +7,7 @@
 
 #define tinyStrToC(tinyStr) ((const char *)(tinyStr).array)
 
-typedef union TinyStr {
+typedef union {
   uint64_t integer;
   char array[8];
 } TinyStr;
